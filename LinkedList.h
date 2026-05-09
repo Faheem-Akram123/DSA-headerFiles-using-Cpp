@@ -30,6 +30,7 @@ public:
     virtual void updateNodeValue(const int& value,const int& pos) = 0;
     virtual bool isEmpty() = 0;
     virtual void display() = 0;
+    virtual void displayR() = 0;
     ~LL()
     {
         delete head;

@@ -2,6 +2,8 @@
 
 class myLL : public LL
 {
+    void dr(Node *p);
+
 public:
     void insertAtHead(const int &value);
     void insertAtTail(const int &value);
@@ -16,7 +18,32 @@ public:
     bool isEmpty();
     void display();
     int countList();
+    void displayR();
 };
+
+void myLL::dr(Node *p)
+{
+    if (p == nullptr)
+    {
+        return;
+    }
+    else
+    {
+        dr(p->next);
+        cout << p->data << " ";
+    }
+}
+
+void myLL::displayR()
+{
+    if (head == nullptr)
+        cout << "LL is empty" << endl;
+
+    else
+    {
+        dr(head);
+    }
+}
 
 bool myLL::isEmpty()
 {
