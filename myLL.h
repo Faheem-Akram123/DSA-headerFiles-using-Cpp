@@ -1,19 +1,20 @@
 #include "LinkedList.h"
 
-class myLL : public LL
+template <class T>
+class myLL : public LL<T>
 {
-    void dr(Node *p);
+    void dr(Node<T> *p);
 
 public:
-    void insertAtHead(const int &value);
-    void insertAtTail(const int &value);
-    void insertAtPosition(const int &value, const int &pos);
-    bool deleteByValue(const int &value);
-    int deleteFromHead();
-    int deleteFromTail();
-    int deleteFromPos(const int &pos);
-    int searchValue(const int &value);
-    void updateNodeValue(const int &value, const int &pos);
+    void insertAtHead(const T &value);
+    void insertAtTail(const T &value);
+    void insertAtPosition(const T &value, const int &pos);
+    bool deleteByValue(const T &value);
+    T deleteFromHead();
+    T deleteFromTail();
+    T deleteFromPos(const int &pos);
+    T searchValue(const T &value);
+    void updateNodeValue(const T &value, const int &pos);
     void sortList();
     bool isEmpty();
     void display();
@@ -21,7 +22,8 @@ public:
     void displayR();
 };
 
-void myLL::dr(Node *p)
+template <class T>
+void myLL<T>::dr(Node<T> *p)
 {
     if (p == nullptr)
     {
@@ -34,63 +36,70 @@ void myLL::dr(Node *p)
     }
 }
 
-void myLL::displayR()
+template <class T>
+void myLL<T>::displayR()
 {
-    if (head == nullptr)
+    if (this->head == nullptr)
         cout << "LL is empty" << endl;
 
     else
     {
-        dr(head);
+        dr(this->head);
     }
 }
 
-bool myLL::isEmpty()
+template <class T>
+bool myLL<T>::isEmpty()
 {
-    if (head == nullptr && tail == nullptr)
+    if (this->head == nullptr && this->tail == nullptr)
     {
         return true;
     }
     return false;
 }
 
-void myLL::insertAtHead(const int &value)
+template <class T>
+void myLL<T>::insertAtHead(const T &value)
 {
-    Node *nn = new Node;
+    Node<T> *nn = new Node<T>;
     nn->data = value;
     nn->next = nullptr;
 
     if (isEmpty())
     {
-        head = nn;
-        tail = nn;
+        this->head = nn;
+        this->tail = nn;
     }
     else
     {
-        nn->next = head;
-        head = nn;
+        nn->next = this->head;
+        this->head = nn;
     }
 }
-void myLL::insertAtTail(const int &value)
+
+template <class T>
+void myLL<T>::insertAtTail(const T &value)
 {
-    Node *nn = new Node;
+    Node<T> *nn = new Node<T>;
     nn->data = value;
     nn->next = nullptr;
 
     if (isEmpty())
     {
-        head = nn;
-        tail = nn;
+        this->head = nn;
+        this->tail = nn;
     }
     else
     {
-        tail->next = nn;
-        tail = nn;
+        this->tail->next = nn;
+        this->tail = nn;
     }
 }
-void myLL::insertAtPosition(const int &value, const int &pos)
+
+template <class T>
+void myLL<T>::insertAtPosition(const T &value, const int &pos)
 {
-    Node *nn = new Node;
+    Node<T> *nn = new Node<T>;
     nn->data = value;
     nn->next = nullptr;
 
@@ -114,23 +123,24 @@ void myLL::insertAtPosition(const int &value, const int &pos)
     else
     {
 
-        Node *t = head;
+        Node<T> *t = this->head<T>;
         for (int i = 1; i < pos - 1; i++)
         {
             t = t->next;
         }
-        Node *tn = t->next;
+        Node<T> *tn = t->next;
 
         t->next = nn;
         nn->next = tn;
     }
 }
 
-void myLL::display()
+template <class T>
+void myLL<T>::display()
 {
     if (!isEmpty())
     {
-        Node *t = head;
+        Node<T> *t = this->head;
         while (true)
         {
             cout << t->data << " ";
@@ -147,12 +157,13 @@ void myLL::display()
     }
 }
 
-int myLL::countList()
+template <class T>
+int myLL<T>::countList()
 {
     int count = 0;
     if (!isEmpty())
     {
-        Node *t = head;
+        Node<T> *t = this->head;
         while (true)
         {
             count++;
@@ -166,82 +177,85 @@ int myLL::countList()
     return count;
 }
 
-int myLL::deleteFromHead()
+template <class T>
+T myLL<T>::deleteFromHead()
 {
     if (isEmpty())
     {
         cout << "Linked List is Empty" << endl;
-        return -1;
+        return T();
     }
     else
     {
-        if (head == tail)
+        if (this->head == tail)
         {
-            int rv = head->data;
-            delete head;
-            head = nullptr;
-            tail = nullptr;
+            int rv = this->head->data;
+            delete this->head;
+            this->head = nullptr;
+            this->tail = nullptr;
             return rv;
         }
         else
         {
-            int rv = head->data;
-            Node *t = head->next;
-            delete head;
-            head = t;
+            int rv = this->head->data;
+            Node<T> *t = this->head->next;
+            delete this->head;
+            this->head = t;
             return rv;
         }
     }
 }
 
-int myLL::deleteFromTail()
+template <class T>
+T myLL<T>::deleteFromTail()
 {
     if (isEmpty())
     {
         cout << "Linked List is Empty" << endl;
-        return -1;
+        return T();
     }
     else
     {
-        if (head == tail)
+        if (this->head == tail)
         {
-            int rv = tail->data;
-            delete tail;
-            head = nullptr;
-            tail = nullptr;
+            int rv = this->tail->data;
+            delete this->tail;
+            this->head = nullptr;
+            this->tail = nullptr;
             return rv;
         }
         else
         {
-            int rv = tail->data;
-            Node *t = head;
+            int rv = this->tail->data;
+            Node<T> *t = this->head;
             while (true)
             {
-                if (t->next == tail)
+                if (t->next == this->tail)
                 {
                     break;
                 }
                 t = t->next;
             }
-            delete tail;
-            tail = t;
-            tail->next = nullptr;
+            delete this->tail;
+            this->tail = t;
+            this->tail->next = nullptr;
             return rv;
         }
     }
 }
 
-int myLL::deleteFromPos(const int &pos)
+template <class T>
+T myLL<T>::deleteFromPos(const int &pos)
 {
     if (isEmpty())
     {
         cout << "Element not removed because Linked list is Empty" << endl;
-        return -1;
+        return T();
     }
     else if (pos <= 0 || pos > countList())
     {
         cout << "Element not removed because Invalid position" << endl;
-        return -1;
+        return T();
     }
     else if (pos == 1)
     {
@@ -253,12 +267,12 @@ int myLL::deleteFromPos(const int &pos)
     }
     else
     {
-        Node *t = head;
+        Node<T> *t = this->head;
         for (int i = 1; i < pos - 1; i++)
         {
             t = t->next;
         }
-        Node *tn = t->next;
+        Node<T> *tn = t->next;
         int rv = tn->data;
         t->next = tn->next;
         delete tn;
@@ -266,17 +280,18 @@ int myLL::deleteFromPos(const int &pos)
     }
 }
 
-int myLL::searchValue(const int &value)
+template <class T>
+T myLL<T>::searchValue(const T &value)
 {
     if (isEmpty())
     {
         cout << "Element not removed because Linked list is Empty" << endl;
-        return -1;
+        return T();
     }
     else
     {
         int pos = 0;
-        Node *t = head;
+        Node<T> *t = this->head;
         while (true)
         {
             if (t->data == value)
@@ -288,14 +303,15 @@ int myLL::searchValue(const int &value)
             if (t->next == nullptr)
             {
                 cout << "value not exit in linked list" << endl;
-                return -1;
+                return T();
             }
             t = t->next;
         }
     }
 }
 
-void myLL::updateNodeValue(const int &value, const int &pos)
+template <class T>
+void myLL<T>::updateNodeValue(const T &value, const int &pos)
 {
     if (isEmpty())
     {
@@ -303,7 +319,7 @@ void myLL::updateNodeValue(const int &value, const int &pos)
     }
     else
     {
-        Node *t = head;
+        Node<T> *t = this->head;
         if (pos < 1 || pos > countList())
         {
             cout << "Invalid position" << endl;
@@ -319,21 +335,22 @@ void myLL::updateNodeValue(const int &value, const int &pos)
     }
 }
 
-bool myLL::deleteByValue(const int &value)
+template <class T>
+bool myLL<T>::deleteByValue(const T &value)
 {
     if (isEmpty())
     {
         cout << "Element not removed because Linked list is Empty" << endl;
-        return -1;
+        return T();
     }
     else
     {
-        Node *t = head;
+        Node<T> *t = this->head;
         while (true)
         {
             if (t->next->data == value)
             {
-                Node *tn = t->next;
+                Node<T> *tn = t->next;
                 t->next = tn->next;
                 delete tn;
                 return true;
@@ -344,17 +361,18 @@ bool myLL::deleteByValue(const int &value)
     return false;
 }
 
-void myLL::sortList()
+template <class T>
+void myLL<T>::sortList()
 {
     int count = countList();
     for (int i = 0; i < count; i++)
     {
-        Node *curr = head;
+        Node<T> *curr = this->head;
         for (int j = i; j < count - 1; j++)
         {
             if (curr->data > curr->next->data)
             {
-                int temp = curr->data;
+                T temp = curr->data;
                 curr->data = curr->next->data;
                 curr->next->data = temp;
             }
