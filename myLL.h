@@ -3,7 +3,7 @@
 template <class T>
 class myLL : public LL<T>
 {
-    void dr(Node<T> *p);
+    void dr(node<T> *p);
 
 public:
     void insertAtHead(const T &value);
@@ -23,7 +23,7 @@ public:
 };
 
 template <class T>
-void myLL<T>::dr(Node<T> *p)
+void myLL<T>::dr(node<T> *p)
 {
     if (p == nullptr)
     {
@@ -61,7 +61,7 @@ bool myLL<T>::isEmpty()
 template <class T>
 void myLL<T>::insertAtHead(const T &value)
 {
-    Node<T> *nn = new Node<T>;
+    node<T> *nn = new node<T>;
     nn->data = value;
     nn->next = nullptr;
 
@@ -80,7 +80,7 @@ void myLL<T>::insertAtHead(const T &value)
 template <class T>
 void myLL<T>::insertAtTail(const T &value)
 {
-    Node<T> *nn = new Node<T>;
+    node<T> *nn = new node<T>;
     nn->data = value;
     nn->next = nullptr;
 
@@ -99,7 +99,7 @@ void myLL<T>::insertAtTail(const T &value)
 template <class T>
 void myLL<T>::insertAtPosition(const T &value, const int &pos)
 {
-    Node<T> *nn = new Node<T>;
+    node<T> *nn = new node<T>;
     nn->data = value;
     nn->next = nullptr;
 
@@ -123,12 +123,12 @@ void myLL<T>::insertAtPosition(const T &value, const int &pos)
     else
     {
 
-        Node<T> *t = this->head<T>;
+        node<T> *t = this->head;
         for (int i = 1; i < pos - 1; i++)
         {
             t = t->next;
         }
-        Node<T> *tn = t->next;
+        node<T> *tn = t->next;
 
         t->next = nn;
         nn->next = tn;
@@ -140,7 +140,7 @@ void myLL<T>::display()
 {
     if (!isEmpty())
     {
-        Node<T> *t = this->head;
+        node<T> *t = this->head;
         while (true)
         {
             cout << t->data << " ";
@@ -163,7 +163,7 @@ int myLL<T>::countList()
     int count = 0;
     if (!isEmpty())
     {
-        Node<T> *t = this->head;
+        node<T> *t = this->head;
         while (true)
         {
             count++;
@@ -187,7 +187,7 @@ T myLL<T>::deleteFromHead()
     }
     else
     {
-        if (this->head == tail)
+        if (this->head == this->tail)
         {
             int rv = this->head->data;
             delete this->head;
@@ -198,7 +198,7 @@ T myLL<T>::deleteFromHead()
         else
         {
             int rv = this->head->data;
-            Node<T> *t = this->head->next;
+            node<T> *t = this->head->next;
             delete this->head;
             this->head = t;
             return rv;
@@ -216,7 +216,7 @@ T myLL<T>::deleteFromTail()
     }
     else
     {
-        if (this->head == tail)
+        if (this->head == this->tail)
         {
             int rv = this->tail->data;
             delete this->tail;
@@ -227,7 +227,7 @@ T myLL<T>::deleteFromTail()
         else
         {
             int rv = this->tail->data;
-            Node<T> *t = this->head;
+            node<T> *t = this->head;
             while (true)
             {
                 if (t->next == this->tail)
@@ -267,12 +267,12 @@ T myLL<T>::deleteFromPos(const int &pos)
     }
     else
     {
-        Node<T> *t = this->head;
+        node<T> *t = this->head;
         for (int i = 1; i < pos - 1; i++)
         {
             t = t->next;
         }
-        Node<T> *tn = t->next;
+        node<T> *tn = t->next;
         int rv = tn->data;
         t->next = tn->next;
         delete tn;
@@ -291,7 +291,7 @@ T myLL<T>::searchValue(const T &value)
     else
     {
         int pos = 0;
-        Node<T> *t = this->head;
+        node<T> *t = this->head;
         while (true)
         {
             if (t->data == value)
@@ -319,7 +319,7 @@ void myLL<T>::updateNodeValue(const T &value, const int &pos)
     }
     else
     {
-        Node<T> *t = this->head;
+        node<T> *t = this->head;
         if (pos < 1 || pos > countList())
         {
             cout << "Invalid position" << endl;
@@ -345,12 +345,12 @@ bool myLL<T>::deleteByValue(const T &value)
     }
     else
     {
-        Node<T> *t = this->head;
+        node<T> *t = this->head;
         while (true)
         {
             if (t->next->data == value)
             {
-                Node<T> *tn = t->next;
+                node<T> *tn = t->next;
                 t->next = tn->next;
                 delete tn;
                 return true;
@@ -367,7 +367,7 @@ void myLL<T>::sortList()
     int count = countList();
     for (int i = 0; i < count; i++)
     {
-        Node<T> *curr = this->head;
+        node<T> *curr = this->head;
         for (int j = i; j < count - 1; j++)
         {
             if (curr->data > curr->next->data)

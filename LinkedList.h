@@ -2,18 +2,18 @@
 using namespace std;
 
 template <class T>
-struct Node
+struct node
 {
     T data;
-    Node<T> *next;
+    node<T> *next;
 };
 
 template <class T>
 class LL
 {
 protected:
-    Node<T> *head;
-    Node<T> *tail;
+    node<T> *head;
+    node<T> *tail;
 
 public:
     LL()
