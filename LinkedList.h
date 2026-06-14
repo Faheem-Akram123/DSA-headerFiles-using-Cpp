@@ -32,7 +32,7 @@ public:
     virtual T deleteFromTail() = 0;
     virtual T deleteFromPos(const int &pos) = 0;
 
-    virtual int searchValue(const T &value) = 0;
+    virtual T searchValue(const T &value) = 0;
 
     virtual void updateNodeValue(const T &value, const int &pos) = 0;
 
